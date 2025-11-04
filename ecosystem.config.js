@@ -22,14 +22,7 @@ module.exports = {
         PATH: '/home/fireok/.nvm/versions/node/v16.20.2/bin:/usr/bin:/bin',
       },
       'pre-deploy-local': `scp .env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env || true && scp .env.deploy ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env.deploy || true`,
-      'post-deploy': `
-        bash -lc "
-          cd ${DEPLOY_PATH}/current &&
-          cp ${DEPLOY_PATH}/shared/.env .env &&
-          npm ci &&
-          npm run build
-        "
-      `,
+      'post-deploy': `cp ${DEPLOY_PATH}/shared/.env . || true && cp ${DEPLOY_PATH}/shared/.env.deploy . || true && npm i && npm run build`,
     },
   },
 };
